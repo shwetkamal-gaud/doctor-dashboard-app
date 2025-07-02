@@ -4,13 +4,13 @@ import axios from "axios"
 
 
 interface State {
-    prescription: Record<string, Prescription>
+    prescription: Prescription[]
     loading: boolean
     error: string | null
 }
 
 const initialState: State = {
-    prescription: {},
+    prescription: [],
     loading: false,
     error: null
 }
@@ -33,13 +33,13 @@ const prescriptionSlice = createSlice({
         builder
             .addCase(generatePrescription.fulfilled, (state, action: PayloadAction<Record<string,Prescription>>) => {
                 console.log(action.payload," in actio")
-                state.prescription = action.payload;
+                
             })
             .addCase(getPrescriptionById.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getPrescriptionById.fulfilled, (state, action: PayloadAction<Record<string, Prescription>>) => {
+            .addCase(getPrescriptionById.fulfilled, (state, action: PayloadAction<Prescription[]>) => {
                 state.prescription = action.payload;
                 state.loading = false
             })

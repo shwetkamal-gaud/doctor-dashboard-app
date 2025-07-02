@@ -1,10 +1,10 @@
-import { generatePrescription } from '@/store/slices/prescription'
+import { generatePrescription, getPrescriptionById } from '@/store/slices/prescription'
 import { RootState, useAppDispatch } from '@/store/store'
 import { Button } from '@react-navigation/elements'
 import { useLocalSearchParams } from 'expo-router'
 import React, { useState } from 'react'
 import { Modal, Text, TextInput, View } from 'react-native'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const AppointmentDetails = () => {
     const { id } = useLocalSearchParams()
@@ -18,14 +18,15 @@ const AppointmentDetails = () => {
     const [instructions, setinstructions] = useState('');
     const submitPrescription = async () => {
         await dispatch(generatePrescription({
-            id:Number(id as string),
+            id: Number(id as string),
             payload: { medicineName: medicine, dosage, instructions }
         }));
+        await dispatch(getPrescriptionById(id as string))
         setModalVisible(false);
     };
 
     if (!appointment) return <Text>Loading...</Text>;
-console.log(prescription)
+    console.log(prescription, "as")
     return (
         <View style={{ padding: 20 }}>
             <Text>{appointment.name}, Age {appointment.age}</Text>
@@ -45,9 +46,14 @@ console.log(prescription)
             {prescription && (
                 <View style={{ marginTop: 20 }}>
                     <Text>Prescription:</Text>
-                    {/* <Text>{prescription.medicineName}</Text>
-                    <Text>{prescription.dosage}</Text>
-                    <Text>{prescription.instructions}</Text> */}
+                    {prescription.map((item) => (
+                        <>
+                            <Text>{item?.medicineName}</Text>
+                            <Text>{item?.dosage}</Text>
+                            <Text>{item?.instructions}</Text>
+                        </>
+                    ))
+                    }
                 </View>
             )}
         </View>

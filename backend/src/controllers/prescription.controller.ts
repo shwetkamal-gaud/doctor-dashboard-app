@@ -9,8 +9,8 @@ export const generatePrescription = async (req: Request, res: Response) => {
         if (!appointment) {
             res.status(404).json({ error: "Appointment not found" })
         }
-        prescriptions[id] = { medicineName, instructions, dosage }
-        res.json({ success: true, message: 'Prescription Generated Successfully' })
+        prescriptions[id].push({ medicineName, instructions, dosage })
+        res.json({  })
     }
     catch (err) {
         console.error(err)
