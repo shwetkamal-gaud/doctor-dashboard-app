@@ -18,7 +18,7 @@ cd frontend
 npm install
 ```
 
-### Run the app
+### 3. Run the app
 ```bash
 cd frontend
 npm start
