@@ -19,7 +19,6 @@ const initialState: State = {
 
 export const fetchAppointments = createAsyncThunk('appointments/fetchAppointments', async () => {
     const res = await axios.get('https://doctor-dashboard-app.onrender.com/appointments')
-    console.log(res,"sfs")
     return res.data
 })
 
@@ -34,7 +33,6 @@ const appointmentSlice = createSlice({
     extraReducers: (builder) => {
         builder.
             addCase(fetchAppointments.pending, (state) => {
-                console.log("asdkj")
                 state.loading = true;
                 state.error = null;
             })
@@ -43,7 +41,6 @@ const appointmentSlice = createSlice({
                 state.loading = false
             })
             .addCase(fetchAppointments.rejected, (state, action) => {
-                console.log("reject")
                 state.loading = false;
                 state.error = action.error.message || 'Failed to fetch list';
             })

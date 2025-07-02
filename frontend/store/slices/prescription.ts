@@ -20,9 +20,18 @@ export const generatePrescription = createAsyncThunk('prescription/generatePresc
     return res.data
 })
 
-export const getPrescriptionById = createAsyncThunk('prescription/getPrescriptionById', async (id: string) => {
-    const res = await axios.get(`https://doctor-dashboard-app.onrender.com/prescriptions/${id}`)
-    return res.data
+export const getPrescriptionById = createAsyncThunk('prescription/getPrescriptionById', async (id: string, { rejectWithValue }) => {
+    try {
+        const res = await axios.get(`https://doctor-dashboard-app.onrender.com/prescriptions/${id}`)
+        if (res.data?.error) {
+            return rejectWithValue(res.data.error);
+        }
+          
+        return res.data
+        
+    } catch (error:any) {
+        return rejectWithValue(error?.response?.data?.error || 'Server error');
+    }
 })
 
 const prescriptionSlice = createSlice({
@@ -31,9 +40,8 @@ const prescriptionSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(generatePrescription.fulfilled, (state, action: PayloadAction<Record<string,Prescription>>) => {
-                console.log(action.payload," in actio")
-                
+            .addCase(generatePrescription.fulfilled, (state, action: PayloadAction<Prescription>) => {
+            
             })
             .addCase(getPrescriptionById.pending, (state) => {
                 state.loading = true;
@@ -45,6 +53,7 @@ const prescriptionSlice = createSlice({
             })
             .addCase(getPrescriptionById.rejected, (state, action) => {
                 state.loading = false;
+                state.prescription = []
                 state.error = action.error.message || 'Failed to get prescritpion';
             })
     }

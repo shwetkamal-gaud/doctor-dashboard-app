@@ -35,13 +35,13 @@ export default function Login() {
         placeholder="Enter your name"
         value={name}
         onChangeText={setName}
-        style={{ borderBottomWidth: 1, marginBottom: 20 }}
+        style={{ borderBottomWidth: 1, width:'100%', marginBottom: 20 }}
       />
       <TextInput
         placeholder="Enter your password"
         value={password}
         onChangeText={setPassword}
-        style={{ borderBottomWidth: 1, marginBottom: 20 }}
+        style={{ borderBottomWidth: 1, width: '100%', marginBottom: 20 }}
       />
       <Button onPress={handleLogin} >Login</Button>
     </View>

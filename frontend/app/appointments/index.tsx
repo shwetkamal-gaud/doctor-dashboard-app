@@ -5,23 +5,27 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { Picker } from '@react-native-picker/picker';
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const AppointmentsList = () => {
     const dispatch = useAppDispatch()
     const router = useRouter()
     const appointments = useSelector((state: RootState) => state.appointment.appointmentList)
+    
     const loading = useSelector((state: RootState) => state.appointment.loading)
     const [filter, setFilter] = useState<null | 'AM' | 'PM'>(null)
     useEffect(() => {
-        console.log("hl")
+       
         dispatch(fetchAppointments());
     }, [])
 
     const filtered = appointments.filter((item) => {
         return item.time.includes(filter ?? '')
     })
-    console.log(filtered, "fil", appointments)
+
     return (
+        <SafeAreaView style={{flex:1, padding:16}}>
+
         <View style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <Picker
                 selectedValue={filter}
@@ -57,6 +61,7 @@ const AppointmentsList = () => {
                 />
             }
         </View>
+        </SafeAreaView>
     )
 }
 
