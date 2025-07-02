@@ -3,22 +3,24 @@ import { RootState, useAppDispatch } from '@/store/store'
 import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
-import {  useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Picker } from '@react-native-picker/picker';
 
 const AppointmentsList = () => {
     const dispatch = useAppDispatch()
     const router = useRouter()
     const appointments = useSelector((state: RootState) => state.appointment.appointmentList)
+    const loading = useSelector((state: RootState) => state.appointment.loading)
     const [filter, setFilter] = useState<null | 'AM' | 'PM'>(null)
     useEffect(() => {
+        console.log("hl")
         dispatch(fetchAppointments());
     }, [])
 
     const filtered = appointments.filter((item) => {
         return item.time.includes(filter ?? '')
     })
-    console.log(filtered)
+    console.log(filtered, "fil", appointments)
     return (
         <View style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <Picker
@@ -36,22 +38,24 @@ const AppointmentsList = () => {
                 <Text>Symptoms</Text>
                 <Text>Time</Text>
             </View>
-            <FlatList
-                data={filtered}
-                keyExtractor={item => item.id.toString()}
-                renderItem={(item) => (
-                    <TouchableOpacity onPress={() => router.push({
-                        pathname: '/appointments/[id]',
-                        params: { id: item.item.id },
-                    })
-                    } style={{ width: '100%', borderRadius: "12px", shadowOpacity: 10, display: 'flex', flexDirection:'row', justifyContent: 'space-between', padding: 10 }}>
-                        <Text>{item.item.name}</Text>
-                        <Text>{item.item.age}</Text>
-                        <Text>{item.item.symptoms}</Text>
-                        <Text>{item.item.time}</Text>
-                    </TouchableOpacity>
-                )}
-            />
+            {loading ? <Text>Loading...</Text> :
+                <FlatList
+                    data={filtered}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={(item) => (
+                        <TouchableOpacity onPress={() => router.push({
+                            pathname: '/appointments/[id]',
+                            params: { id: item.item.id },
+                        })
+                        } style={{ width: '100%', borderRadius: "12px", shadowOpacity: 10, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+                            <Text>{item.item.name}</Text>
+                            <Text>{item.item.age}</Text>
+                            <Text>{item.item.symptoms}</Text>
+                            <Text>{item.item.time}</Text>
+                        </TouchableOpacity>
+                    )}
+                />
+            }
         </View>
     )
 }

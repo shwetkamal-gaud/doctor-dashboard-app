@@ -3,7 +3,7 @@ import { generatePrescription, getPrescription } from '../controllers/prescripti
 
 const router = Router()
 
-router.get("/", getPrescription)
-router.post("/", generatePrescription)
+router.get("/:id", getPrescription)
+router.post("/:id", generatePrescription)
 
 export default router
