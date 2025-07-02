@@ -8,6 +8,7 @@ export const generatePrescription = async (req: Request, res: Response) => {
         const appointment = appointments.find((item) => item.id === Number(id))
         if (!appointment) {
             res.status(404).json({ error: "Appointment not found" })
+            return
         }
         prescriptions[id].push({ medicineName, instructions, dosage })
         res.json({  })
@@ -22,6 +23,7 @@ export const getPrescription = async (req: Request, res: Response) => {
         const id = req.params.id
         if (id in prescriptions) {
             res.json(prescriptions[req.params.id])
+            return
         }
         res.json({ error: 'Prescription not found' })
     }

@@ -15,11 +15,14 @@ export const getSingleAppointment = async (req: Request, res: Response) => {
         const id = req.params.id
         if (!id) {
             res.json({ error: "Id is required" })
+            return
         }
         const appointment = appointments.find((item) => item.id === Number(id))
         if (!appointment) {
             res.json({ error: "Appointment not found" })
+            return
         }
+
         res.json(appointment)
     } catch (error) {
         console.error(error)
