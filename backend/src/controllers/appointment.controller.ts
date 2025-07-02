@@ -4,6 +4,7 @@ import { appointments } from "../data/mockData";
 export const getAppointmentsList = async (req: Request, res: Response) => {
     try {
         res.json(appointments)
+        return
     }
     catch (e) {
         console.error(e)
@@ -24,6 +25,7 @@ export const getSingleAppointment = async (req: Request, res: Response) => {
         }
 
         res.json(appointment)
+        return
     } catch (error) {
         console.error(error)
     }

@@ -10,8 +10,17 @@ export const generatePrescription = async (req: Request, res: Response) => {
             res.status(404).json({ error: "Appointment not found" })
             return
         }
-        prescriptions[id].push({ medicineName, instructions, dosage })
-        res.json({  })
+        if (!prescriptions[id]) {
+            prescriptions[id] = [];
+        }
+
+        prescriptions[id].push({ medicineName, instructions, dosage });
+
+        res.json({
+            message: "Prescription generated successfully",
+            data: prescriptions[id],
+        });
+        return
     }
     catch (err) {
         console.error(err)
@@ -26,6 +35,7 @@ export const getPrescription = async (req: Request, res: Response) => {
             return
         }
         res.json({ error: 'Prescription not found' })
+        return
     }
     catch (err) {
         console.error(err)

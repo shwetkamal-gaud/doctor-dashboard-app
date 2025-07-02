@@ -31,6 +31,4 @@ export const appointments: Appointment[] = [
     },
 ]
 
-export const prescriptions: Record<string, Prescription[]> = {
-
-}
+export const prescriptions: Record<string, Prescription[]> = {}
