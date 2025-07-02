@@ -18,12 +18,12 @@ const initialState: State = {
 }
 
 export const fetchAppointments = createAsyncThunk('appointments/fetchAppointments', async () => {
-    const res = await axios.get('http://localhost:3000/appointments')
+    const res = await axios.get('https://doctor-dashboard-app.onrender.com/appointments')
     return res.data
 })
 
 export const getAppointmentById = createAsyncThunk('appointments/getAppointmentById', async (id: string) => {
-    const res = await axios.get(`http://localhost:3000/appointments/${id}`)
+    const res = await axios.get(`https://doctor-dashboard-app.onrender.com/appointments/${id}`)
     return res.data
 })
 const appointmentSlice = createSlice({

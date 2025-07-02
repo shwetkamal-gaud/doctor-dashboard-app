@@ -16,12 +16,12 @@ const initialState: State = {
 }
 
 export const generatePrescription = createAsyncThunk('prescription/generatePrescription', async ({ id, payload }: { id: number, payload: Prescription }) => {
-    const res = await axios.post(`http://localhost:3000/prescriptions/${id}`, payload)
+    const res = await axios.post(`https://doctor-dashboard-app.onrender.com/prescriptions/${id}`, payload)
     return res.data
 })
 
 export const getPrescriptionById = createAsyncThunk('prescription/generatePrescription', async (id: string) => {
-    const res = await axios.get(`http://localhost:3000/prescriptions/${id}`)
+    const res = await axios.get(`https://doctor-dashboard-app.onrender.com/prescriptions/${id}`)
     return res.data
 })
 
