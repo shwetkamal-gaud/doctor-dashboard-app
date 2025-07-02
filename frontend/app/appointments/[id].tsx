@@ -9,7 +9,7 @@ import {  useSelector } from 'react-redux'
 const AppointmentDetails = () => {
     const { id } = useLocalSearchParams()
     const appointment = useSelector((state: RootState) => state.appointment.appointmentList.find((item) => item.id === Number(id as string)))
-    const prescription = useSelector((state: RootState) => state.prescription.prescription[id as string])
+    const prescription = useSelector((state: RootState) => state.prescription.prescription)
     const dispatch = useAppDispatch();
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -25,7 +25,7 @@ const AppointmentDetails = () => {
     };
 
     if (!appointment) return <Text>Loading...</Text>;
-
+console.log(prescription)
     return (
         <View style={{ padding: 20 }}>
             <Text>{appointment.name}, Age {appointment.age}</Text>
@@ -45,9 +45,9 @@ const AppointmentDetails = () => {
             {prescription && (
                 <View style={{ marginTop: 20 }}>
                     <Text>Prescription:</Text>
-                    <Text>{prescription.medicineName}</Text>
+                    {/* <Text>{prescription.medicineName}</Text>
                     <Text>{prescription.dosage}</Text>
-                    <Text>{prescription.instructions}</Text>
+                    <Text>{prescription.instructions}</Text> */}
                 </View>
             )}
         </View>

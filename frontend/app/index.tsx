@@ -14,7 +14,7 @@ export default function Login() {
   const handleLogin = () => {
     if (name.trim() && password.trim()) {
       dispatch(login({name, password}));
-      router.replace('/appointments/index');
+      router.replace({pathname:'/appointments'});
     }
   };
 

@@ -3,8 +3,9 @@ import { appointments, prescriptions } from "../data/mockData";
 
 export const generatePrescription = async (req: Request, res: Response) => {
     try {
-        const { id, medicineName, instructions, dosage } = req.body
-        const appointment = appointments.find((item) => item.id === id)
+        const id = req.params.id
+        const { medicineName, instructions, dosage } = req.body
+        const appointment = appointments.find((item) => item.id === Number(id))
         if (!appointment) {
             res.status(404).json({ error: "Appointment not found" })
         }

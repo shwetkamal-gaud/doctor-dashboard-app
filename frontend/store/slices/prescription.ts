@@ -20,7 +20,7 @@ export const generatePrescription = createAsyncThunk('prescription/generatePresc
     return res.data
 })
 
-export const getPrescriptionById = createAsyncThunk('prescription/generatePrescription', async (id: string) => {
+export const getPrescriptionById = createAsyncThunk('prescription/getPrescriptionById', async (id: string) => {
     const res = await axios.get(`https://doctor-dashboard-app.onrender.com/prescriptions/${id}`)
     return res.data
 })
@@ -32,6 +32,7 @@ const prescriptionSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(generatePrescription.fulfilled, (state, action: PayloadAction<Record<string,Prescription>>) => {
+                console.log(action.payload," in actio")
                 state.prescription = action.payload;
             })
             .addCase(getPrescriptionById.pending, (state) => {

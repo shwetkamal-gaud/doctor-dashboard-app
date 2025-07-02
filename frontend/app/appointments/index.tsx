@@ -10,7 +10,7 @@ const AppointmentsList = () => {
     const dispatch = useAppDispatch()
     const router = useRouter()
     const appointments = useSelector((state: RootState) => state.appointment.appointmentList)
-    const [filter, setFilter] = useState<null | 'morning' | 'evening'>(null)
+    const [filter, setFilter] = useState<null | 'AM' | 'PM'>(null)
     useEffect(() => {
         dispatch(fetchAppointments());
     }, [])
@@ -18,6 +18,7 @@ const AppointmentsList = () => {
     const filtered = appointments.filter((item) => {
         return item.time.includes(filter ?? '')
     })
+    console.log(filtered)
     return (
         <View style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <Picker
@@ -26,10 +27,10 @@ const AppointmentsList = () => {
                     setFilter(itemValue)
                 }>
                 <Picker.Item label="All" value={null} />
-                <Picker.Item label="Morning" value="morning" />
-                <Picker.Item label="Evening" value="evening" />
+                <Picker.Item label="Morning" value="AM" />
+                <Picker.Item label="Evening" value="PM" />
             </Picker>
-            <View style={{ width: '100%', borderBottomWidth: 10, shadowOpacity: 10, display: 'flex', justifyContent: 'space-between', padding: 10 }}>
+            <View style={{ width: '100%', borderBottomWidth: 1, shadowOpacity: 10, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
                 <Text>Name</Text>
                 <Text>Age</Text>
                 <Text>Symptoms</Text>
@@ -43,11 +44,11 @@ const AppointmentsList = () => {
                         pathname: '/appointments/[id]',
                         params: { id: item.item.id },
                     })
-                    } style={{ width: '100%', borderRadius: "12px", shadowOpacity: 10, display: 'flex', justifyContent: 'space-between', padding: 10 }}>
+                    } style={{ width: '100%', borderRadius: "12px", shadowOpacity: 10, display: 'flex', flexDirection:'row', justifyContent: 'space-between', padding: 10 }}>
                         <Text>{item.item.name}</Text>
                         <Text>{item.item.age}</Text>
                         <Text>{item.item.symptoms}</Text>
-                        <Text>{item.item.symptoms}</Text>
+                        <Text>{item.item.time}</Text>
                     </TouchableOpacity>
                 )}
             />
