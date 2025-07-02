@@ -1,36 +1,36 @@
-import { Apointment, Prescription } from "src/types/type";
+import { Appointment, Prescription } from "../types/type";
 
-export const appointments: Apointment[] = [
+export const appointments: Appointment[] = [
     {
         id: 1,
         name: 'Shwetkamal',
         symptoms: 'Fever',
-        time: new Date(),
+        time: "10:00 AM",
         age: 22
     },
     {
         id: 2,
         name: 'Gaud',
         symptoms: 'Cough',
-        time: new Date(),
+        time: "11:00 AM",
         age: 22
     },
     {
         id: 3,
         name: 'Kamal',
         symptoms: 'Headache',
-        time: new Date(),
+        time:"12:00 PM",
         age: 22
     },
     {
         id: 4,
         name: 'Shwet',
         symptoms: 'Depression',
-        time: new Date(),
+        time: "01:00 PM",
         age: 22
     },
 ]
 
-export const prescriptions: Record<string, Prescription>= {
+export const prescriptions: Record<string, Prescription> = {
 
 }

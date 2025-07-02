@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { generatePrescription, getPrescription } from 'src/controllers/prescription.controller'
+import { generatePrescription, getPrescription } from '../controllers/prescription.controller'
 
 const router = Router()
 

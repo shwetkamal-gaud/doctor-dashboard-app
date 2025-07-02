@@ -1,30 +1,30 @@
 import { Request, Response } from "express";
-import { appointments, prescriptions } from "src/data/mockData";
+import { appointments, prescriptions } from "../data/mockData";
 
-export const generatePrescription = async(req: Request, res: Response) => {
-    try{
-        const {id, madicineName, instruction, dosage} = req.body
+export const generatePrescription = async (req: Request, res: Response) => {
+    try {
+        const { id, medicineName, instructions, dosage } = req.body
         const appointment = appointments.find((item) => item.id === id)
-        if(!appointment){
-            res.status(404).json({error:"Appointment not found"})
+        if (!appointment) {
+            res.status(404).json({ error: "Appointment not found" })
         }
-        prescriptions[id] = {madicineName, instruction, dosage}
-        res.json({success: true, message:'Prescription Generated Successfully'})
+        prescriptions[id] = { medicineName, instructions, dosage }
+        res.json({ success: true, message: 'Prescription Generated Successfully' })
     }
-    catch(err){
+    catch (err) {
         console.error(err)
     }
 }
 
-export const getPrescription = async(req: Request, res: Response) => {
-    try{
+export const getPrescription = async (req: Request, res: Response) => {
+    try {
         const id = req.params.id
-        if (id in prescriptions){
+        if (id in prescriptions) {
             res.json(prescriptions[req.params.id])
         }
-        res.json({error:'Prescription not found'})
+        res.json({ error: 'Prescription not found' })
     }
-    catch(err){
+    catch (err) {
         console.error(err)
     }
 }

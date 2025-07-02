@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { appointments } from "src/data/mockData";
+import { appointments } from "../data/mockData";
 
 export const getAppointmentsList = async (req: Request, res: Response) => {
     try {

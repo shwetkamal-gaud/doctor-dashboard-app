@@ -10,4 +10,4 @@ app.use(express.json());
 app.use('/appointments', appointmentsRouter);
 app.use('/prescriptions', prescriptionsRouter);
 
-app.listen(3000, () => console.log('Backend listening on port 3000'));
+app.listen(3000, () => console.log('Server runing on port 3000'));
